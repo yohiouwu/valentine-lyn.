@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lyn, Will You Be My Valentine?</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Spotify-style Music Player -->
+  <div class="music-player">
+    <img src="cover.jpg" alt="Music Cover" id="cover">
+    <button id="playPause">▶️</button>
+    <audio id="bgMusic" loop>
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- Floating hearts -->
+  <div class="hearts"></div>
+
+  <div class="container">
+    <h1>Lyn 💕</h1>
+    <p>I made this just for you, Lyn.</p>
+    <h2>Will you be my Valentine? 💌</h2>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙄</button>
+    </div>
+
+    <div id="finalMessage" class="hidden">
+      <h2>🎉 Happy Valentine’s Day, Lyn ❤️</h2>
+      <p>You just made me the happiest person alive 🥰</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const finalMessage = document.getElementById("finalMessage");
+const heartsContainer = document.querySelector(".hearts");
+const music = document.getElementById("bgMusic");
+const playPauseBtn = document.getElementById("playPause");
+
+let noCount = 0;
+const noTexts = [
+  "No 🙄",
+  "Wait… 😳",
+  "Are you sure?",
+  "PLEASE Lyn 😭",
+  "Don’t break my heart 💔",
+  "I’m begging 🥺",
+  "THIS IS PAINFUL 😩",
+  "You HAVE to say yes 💘"
+];
+
+// Autoplay music
+window.addEventListener("load", () => {
+  music.play().then(() => {
+    playPauseBtn.textContent = "⏸️";
+  }).catch(() => {
+    document.body.addEventListener("click", () => {
+      music.play();
+      playPauseBtn.textContent = "⏸️";
+    }, { once: true });
+  });
+});
+
+// Play/Pause button
+playPauseBtn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    playPauseBtn.textContent = "⏸️";
+  } else {
+    music.pause();
+    playPauseBtn.textContent = "▶️";
+  }
+});
+
+// No button desperation
+noBtn.addEventListener("mouseover", () => {
+  noCount++;
+  if (noCount < noTexts.length) {
+    noBtn.textContent = noTexts[noCount];
+  }
+
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+  noBtn.style.position = "absolute";
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+  noBtn.style.transform = `scale(${1 - noCount * 0.05})`;
+});
+
+// Yes button → final screen + confetti
+yesBtn.addEventListener("click", () => {
+  finalMessage.classList.remove("hidden");
+  yesBtn.style.display = "none";
+  noBtn.style.display = "none";
+
+  // Create hearts + confetti
+  for (let i = 0; i < 50; i++) {
+    createHeart(true);
+  }
+});
+
+// Floating hearts (normal)
+function createHeart(isFinal=false) {
+  const heart = document.createElement("span");
+  heart.innerHTML = isFinal ? "💖" : "💌";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = isFinal ? (Math.random() * 20 + 20) + "px" : "22px";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  heart.style.opacity = Math.random();
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}
+
+// Regular floating hearts
+setInterval(() => createHeart(false), 300);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+}
+
+/* Music Player */
+.music-player {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.8);
+  padding: 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 3;
+}
+
+.music-player img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.music-player button {
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Main card */
+.container {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  z-index: 2;
+}
+
+h1 {
+  color: #ff4d6d;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 15px 0;
+}
+
+p {
+  color: #555;
+}
+
+/* Buttons */
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+button {
+  padding: 12px 22px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#yesBtn {
+  background-color: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background-color: #ccc;
+  position: relative;
+}
+
+/* Final message */
+.hidden {
+  display: none;
+}
+
+#finalMessage h2 {
+  color: #ff4d6d;
+  margin-bottom: 10px;
+}
+
+#finalMessage p {
+  color: #555;
+  font-size: 18px;
+}
+
+/* Floating hearts */
+.hearts span {
+  position: absolute;
+  bottom: -20px;
+  font-size: 22px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100vh) scale(1.6);
+    opacity: 0;
+  }
+}
+
