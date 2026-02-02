@@ -47,7 +47,7 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 12px;
   display: flex;
@@ -56,12 +56,22 @@ body {
   z-index: 3;
 }
 
-.music-player img {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
+/* Cover container to give it a square look */
+.cover-container {
+  width: 60px;  /* Size of the cover */
+  height: 60px;
+  overflow: hidden;
+  border-radius: 8px;  /* Rounded corners for the cover */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow to make it pop */
 }
 
+.cover-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* Ensures the image fills the container */
+}
+
+/* Play/Pause Button */
 .music-player button {
   font-size: 20px;
   border: none;
