@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lyn, Will You Be My Valentine?</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- 🌹 Falling Roses -->
+  <div id="roses-container"></div>
+
+  <!-- Spotify-style Music Player -->
+  <div class="music-player">
+    <img src="cover.jpg" alt="Music Cover" id="cover">
+    <button id="playPause">▶️</button>
+    <audio id="bgMusic" loop>
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- Floating hearts -->
+  <div class="hearts"></div>
+
+  <div class="container">
+    <h1>Lyn 💕</h1>
+    <p>I made this just for you, Lyn.</p>
+    <h2>Will you be my Valentine? 💌</h2>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙄</button>
+    </div>
+
+    <div id="finalMessage" class="hidden">
+      <h2>🎉 Happy Valentine’s Day, Lyn ❤️</h2>
+      <p>You just made me the happiest person alive 🥰</p>
+    </div>
+
+    <!-- 🧸 Bear Couple 1 -->
+    <div id="bearKiss" class="hidden">
+      <img src="bear-kiss1.gif" alt="Bear Couple 1">
+      <h3>We’re officially Valentines 💞</h3>
+    </div>
+
+    <!-- 🧸 Bear Couple 2 -->
+    <div id="bearKiss2" class="hidden">
+      <img src="bear-kiss2.gif" alt="Bear Couple 2">
+      <h3>Forever Together! 💘</h3>
+    </div>
+
+    <!-- 🧸 Bear Couple 3 -->
+    <div id="bearKiss3" class="hidden">
+      <img src="bear-kiss3.gif" alt="Bear Couple 3">
+      <h3>Happily Ever After 🥰</h3>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
