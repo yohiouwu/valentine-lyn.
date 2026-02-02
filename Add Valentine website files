@@ -11,16 +11,16 @@
   <!-- 🌹 Falling Roses -->
   <div id="roses-container"></div>
 
-  <!-- Spotify-style Music Player -->
+  <!-- 🎵 Music Player -->
   <div class="music-player">
-    <img src="cover.jpg" alt="Music Cover" id="cover">
+    <img src="cover.jpg" alt="Music Cover">
     <button id="playPause">▶️</button>
     <audio id="bgMusic" loop>
       <source src="music.mp3" type="audio/mpeg">
     </audio>
   </div>
 
-  <!-- Floating hearts -->
+  <!-- 💕 Floating Hearts -->
   <div class="hearts"></div>
 
   <div class="container">
@@ -38,29 +38,21 @@
       <p>You just made me the happiest person alive 🥰</p>
     </div>
 
-    <!-- 🧸 Bear Couple 1 -->
+    <!-- 🧸 Bears -->
     <div id="bearKiss" class="hidden">
-      <img src="bear-kiss1.gif" alt="Bear Couple 1">
+      <img src="bear-kiss1.gif">
       <h3>We’re officially Valentines 💞</h3>
     </div>
 
-    <!-- 🧸 Bear Couple 2 -->
     <div id="bearKiss2" class="hidden">
-      <img src="bear-kiss2.gif" alt="Bear Couple 2">
-      <h3>Forever Together! 💘</h3>
-    </div>
-
-    <!-- 🧸 Bear Couple 3 -->
-    <div id="bearKiss3" class="hidden">
-      <img src="bear-kiss3.gif" alt="Bear Couple 3">
-      <h3>Happily Ever After 🥰</h3>
+      <img src="bear-kiss2.gif">
+      <h3>Forever Together 💘</h3>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const finalMessage = document.getElementById("finalMessage");
@@ -69,7 +61,6 @@ const music = document.getElementById("bgMusic");
 const playPauseBtn = document.getElementById("playPause");
 const bearKiss = document.getElementById("bearKiss");
 const bearKiss2 = document.getElementById("bearKiss2");
-const bearKiss3 = document.getElementById("bearKiss3");
 const rosesContainer = document.getElementById("roses-container");
 
 let noCount = 0;
@@ -84,19 +75,7 @@ const noTexts = [
   "You HAVE to say yes 💘"
 ];
 
-// 🎵 Autoplay music
-window.addEventListener("load", () => {
-  music.play().then(() => {
-    playPauseBtn.textContent = "⏸️";
-  }).catch(() => {
-    document.body.addEventListener("click", () => {
-      music.play();
-      playPauseBtn.textContent = "⏸️";
-    }, { once: true });
-  });
-});
-
-// Play/Pause
+// ▶️ Play / Pause button
 playPauseBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
@@ -123,62 +102,69 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.transform = `scale(${1 - noCount * 0.05})`;
 });
 
-// 💖 YES BUTTON
+// 💖 YES BUTTON — music starts at 0:24 with fade-in
 yesBtn.addEventListener("click", () => {
+  music.currentTime = 24;   // ⏱️ 0:24
+  music.volume = 0;        // start silent
+  music.play();
+  playPauseBtn.textContent = "⏸️";
+
+  fadeInMusic();
+
   finalMessage.classList.remove("hidden");
   bearKiss.classList.remove("hidden");
 
-  // Change text to celebration message
-  const question = document.querySelector("h2");
-  question.textContent = "yaayayyayayyayayayayaya :3";
+  document.querySelector("h2").textContent =
+    "yaayayyayayyayayayayaya :3";
 
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
-  for (let i = 0; i < 50; i++) {
-    createHeart(true);
-  }
+  for (let i = 0; i < 50; i++) createHeart(true);
 
-  // Display bears sequentially
-  setTimeout(() => {
-    bearKiss2.classList.remove("hidden");
-  }, 3000); // Show second bear after 3 seconds
-
-  setTimeout(() => {
-    bearKiss3.classList.remove("hidden");
-  }, 6000); // Show third bear after another 3 seconds
+  setTimeout(() => bearKiss2.classList.remove("hidden"), 3000);
+  setTimeout(() => bearKiss3.classList.remove("hidden"), 6000);
 });
 
-// 💕 Hearts
-function createHeart(isFinal=false) {
-  const heart = document.createElement("span");
-  heart.innerHTML = isFinal ? "💖" : "💌";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = isFinal ? (Math.random() * 20 + 20) + "px" : "40px";  // Bigger hearts
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-  heart.style.opacity = Math.random();
-  heartsContainer.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 8000);  // Adjusted timing to fit larger hearts
+// 🎶 Smooth fade-in
+function fadeInMusic() {
+  let volume = 0;
+  const fade = setInterval(() => {
+    if (volume < 1) {
+      volume += 0.02;
+      music.volume = volume;
+    } else {
+      music.volume = 1;
+      clearInterval(fade);
+    }
+  }, 100);
 }
 
-setInterval(() => createHeart(false), 300);
+// 💕 Hearts
+function createHeart(final = false) {
+  const heart = document.createElement("span");
+  heart.textContent = final ? "💖" : "💌";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = final ? "30px" : "40px";
+  heart.style.animationDuration = "8s";
+  heartsContainer.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(() => createHeart(), 300);
 
 // 🌹 Roses
 function createRose() {
   const rose = document.createElement("span");
   rose.className = "rose";
-  rose.textContent = "🌹";  // Emoji rose
+  rose.textContent = "🌹";
   rose.style.left = Math.random() * 100 + "vw";
-  rose.style.fontSize = 36 + Math.random() * 10 + "px";  // Bigger roses
-  rose.style.animationDuration = 5 + Math.random() * 4 + "s";
+  rose.style.animationDuration = "6s";
   rosesContainer.appendChild(rose);
-
   setTimeout(() => rose.remove(), 9000);
 }
 
 setInterval(createRose, 450);
-
 * {
   margin: 0;
   padding: 0;
@@ -193,28 +179,21 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  text-align: center;
-  position: relative;
 }
 
-/* 🌹 Falling Roses */
+/* 🌹 Roses */
 #roses-container {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
 }
 
 .rose {
   position: absolute;
   top: -40px;
-  font-size: 36px;  /* Increased size */
+  font-size: 36px;
   animation: fall linear infinite;
-  opacity: 0.9;
 }
 
 @keyframes fall {
@@ -223,7 +202,7 @@ body {
   }
 }
 
-/* Music Player */
+/* 🎵 Music Player */
 .music-player {
   position: fixed;
   top: 20px;
@@ -232,9 +211,7 @@ body {
   padding: 10px;
   border-radius: 12px;
   display: flex;
-  align-items: center;
   gap: 10px;
-  z-index: 3;
 }
 
 .music-player img {
@@ -243,126 +220,58 @@ body {
   border-radius: 8px;
 }
 
-.music-player button {
-  font-size: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-/* Main card */
+/* 💌 Card */
 .container {
   background: white;
   padding: 25px;
   border-radius: 15px;
-  width: 90%;
   max-width: 420px;
+  text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  z-index: 2;
 }
 
 h1 {
   color: #ff4d6d;
-  margin-bottom: 10px;
 }
 
-h2 {
-  margin: 15px 0;
-}
-
-p {
-  color: #555;
-}
-
-/* Buttons */
 .buttons {
-  margin-top: 20px;
   display: flex;
   justify-content: space-around;
-  gap: 10px;
+  margin-top: 20px;
 }
 
 button {
   padding: 12px 22px;
   font-size: 18px;
-  border: none;
   border-radius: 30px;
+  border: none;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
 #yesBtn {
-  background-color: #ff4d6d;
+  background: #ff4d6d;
   color: white;
 }
 
 #noBtn {
-  background-color: #ccc;
-  position: relative;
+  background: #ccc;
 }
 
-/* Final message */
 .hidden {
   display: none;
 }
 
-#finalMessage h2 {
-  color: #ff4d6d;
-  margin-bottom: 10px;
-}
-
-#finalMessage p {
-  color: #555;
-  font-size: 18px;
-}
-
-/* 🧸 Bear GIFs Container */
-#bearContainer {
-  display: flex;
-  justify-content: center;
-  gap: 30px; /* Add some space between the bears */
-  margin-top: 30px;
-  flex-wrap: wrap;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.bear {
-  text-align: center;
-  max-width: 200px;  /* Optional: Set max width for each bear */
-}
-
-#bearContainer .bear img {
-  width: 100%;
-  max-width: 150px; /* Limit the bear GIF size */
-}
-
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Floating hearts */
+/* 💕 Hearts */
 .hearts span {
   position: absolute;
   bottom: -20px;
-  font-size: 40px;  /* Bigger hearts */
-  animation: floatUp 8s linear infinite;  /* Slower speed for bigger hearts */
+  font-size: 40px;
+  animation: floatUp 8s linear infinite;
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
   to {
-    transform: translateY(-100vh) scale(2);  /* Bigger scale */
+    transform: translateY(-100vh) scale(2);
     opacity: 0;
   }
 }
