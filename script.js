@@ -6,6 +6,7 @@ const music = document.getElementById("bgMusic");
 const playPauseBtn = document.getElementById("playPause");
 const bearKiss = document.getElementById("bearKiss");
 const bearKiss2 = document.getElementById("bearKiss2");
+const bearKiss3 = document.getElementById("bearKiss3");
 const rosesContainer = document.getElementById("roses-container");
 
 let noCount = 0;
