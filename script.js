@@ -20,19 +20,21 @@ const noTexts = [
   "You HAVE to say yes 💘"
 ];
 
-// 🎵 Autoplay music
-window.addEventListener("load", () => {
+// 🎵 Autoplay music when page loads
+window.addEventListener('load', () => {
   music.play().then(() => {
-    playPauseBtn.textContent = "⏸️";
-  }).catch(() => {
-    document.body.addEventListener("click", () => {
+    // Music started successfully
+    playPauseBtn.textContent = "⏸️"; // Update play/pause button text to pause
+  }).catch((error) => {
+    // If autoplay doesn't work due to restrictions, play music on first click
+    document.body.addEventListener('click', () => {
       music.play();
-      playPauseBtn.textContent = "⏸️";
+      playPauseBtn.textContent = "⏸️"; // Update play/pause button text to pause
     }, { once: true });
   });
 });
 
-// Play/Pause
+// Play/Pause button logic
 playPauseBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
@@ -80,6 +82,9 @@ yesBtn.addEventListener("click", () => {
     bearKiss2.classList.remove("hidden");
   }, 3000); // Show second bear after 3 seconds
 
+  setTimeout(() => {
+    bearKiss3.classList.remove("hidden");
+  }, 6000); // Show third bear after another 3 seconds
 });
 
 // 💕 Hearts
@@ -111,4 +116,3 @@ function createRose() {
 }
 
 setInterval(createRose, 450);
-
