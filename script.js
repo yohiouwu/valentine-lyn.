@@ -20,21 +20,7 @@ const noTexts = [
   "You HAVE to say yes 💘"
 ];
 
-// 🎵 Autoplay music when page loads
-window.addEventListener('load', () => {
-  music.play().then(() => {
-    // Music started successfully
-    playPauseBtn.textContent = "⏸️"; // Update play/pause button text to pause
-  }).catch((error) => {
-    // If autoplay doesn't work due to restrictions, play music on first click
-    document.body.addEventListener('click', () => {
-      music.play();
-      playPauseBtn.textContent = "⏸️"; // Update play/pause button text to pause
-    }, { once: true });
-  });
-});
-
-// Play/Pause button logic
+// ▶️ Play / Pause button
 playPauseBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
@@ -61,57 +47,65 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.transform = `scale(${1 - noCount * 0.05})`;
 });
 
-// 💖 YES BUTTON
+// 💖 YES BUTTON — music starts at 0:24 with fade-in
 yesBtn.addEventListener("click", () => {
+  music.currentTime = 24;   // ⏱️ 0:24
+  music.volume = 0;        // start silent
+  music.play();
+  playPauseBtn.textContent = "⏸️";
+
+  fadeInMusic();
+
   finalMessage.classList.remove("hidden");
   bearKiss.classList.remove("hidden");
 
-  // Change text to celebration message
-  const question = document.querySelector("h2");
-  question.textContent = "yaayayyayayyayayayayaya :3";
+  document.querySelector("h2").textContent =
+    "yaayayyayayyayayayayaya :3";
 
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
-  for (let i = 0; i < 50; i++) {
-    createHeart(true);
-  }
+  for (let i = 0; i < 50; i++) createHeart(true);
 
-  // Display bears sequentially
-  setTimeout(() => {
-    bearKiss2.classList.remove("hidden");
-  }, 3000); // Show second bear after 3 seconds
-
-  setTimeout(() => {
-    bearKiss3.classList.remove("hidden");
-  }, 6000); // Show third bear after another 3 seconds
+  setTimeout(() => bearKiss2.classList.remove("hidden"), 3000);
+  setTimeout(() => bearKiss3.classList.remove("hidden"), 6000);
 });
 
-// 💕 Hearts
-function createHeart(isFinal=false) {
-  const heart = document.createElement("span");
-  heart.innerHTML = isFinal ? "💖" : "💌";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = isFinal ? (Math.random() * 20 + 20) + "px" : "40px";  // Bigger hearts
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-  heart.style.opacity = Math.random();
-  heartsContainer.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 8000);  // Adjusted timing to fit larger hearts
+// 🎶 Smooth fade-in
+function fadeInMusic() {
+  let volume = 0;
+  const fade = setInterval(() => {
+    if (volume < 1) {
+      volume += 0.02;
+      music.volume = volume;
+    } else {
+      music.volume = 1;
+      clearInterval(fade);
+    }
+  }, 100);
 }
 
-setInterval(() => createHeart(false), 300);
+// 💕 Hearts
+function createHeart(final = false) {
+  const heart = document.createElement("span");
+  heart.textContent = final ? "💖" : "💌";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = final ? "30px" : "40px";
+  heart.style.animationDuration = "8s";
+  heartsContainer.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(() => createHeart(), 300);
 
 // 🌹 Roses
 function createRose() {
   const rose = document.createElement("span");
   rose.className = "rose";
-  rose.textContent = "🌹";  // Emoji rose
+  rose.textContent = "🌹";
   rose.style.left = Math.random() * 100 + "vw";
-  rose.style.fontSize = 36 + Math.random() * 10 + "px";  // Bigger roses
-  rose.style.animationDuration = 5 + Math.random() * 4 + "s";
+  rose.style.animationDuration = "6s";
   rosesContainer.appendChild(rose);
-
   setTimeout(() => rose.remove(), 9000);
 }
 
