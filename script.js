@@ -6,7 +6,6 @@ const music = document.getElementById("bgMusic");
 const playPauseBtn = document.getElementById("playPause");
 const bearKiss = document.getElementById("bearKiss");
 const bearKiss2 = document.getElementById("bearKiss2");
-const bearKiss3 = document.getElementById("bearKiss3");
 const rosesContainer = document.getElementById("roses-container");
 
 let noCount = 0;
@@ -81,9 +80,6 @@ yesBtn.addEventListener("click", () => {
     bearKiss2.classList.remove("hidden");
   }, 3000); // Show second bear after 3 seconds
 
-  setTimeout(() => {
-    bearKiss3.classList.remove("hidden");
-  }, 6000); // Show third bear after another 3 seconds
 });
 
 // 💕 Hearts
@@ -115,3 +111,4 @@ function createRose() {
 }
 
 setInterval(createRose, 450);
+
