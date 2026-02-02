@@ -12,28 +12,21 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  text-align: center;
-  position: relative;
 }
 
-/* 🌹 Falling Roses */
+/* 🌹 Roses */
 #roses-container {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
 }
 
 .rose {
   position: absolute;
   top: -40px;
-  font-size: 36px;  /* Increased size */
+  font-size: 36px;
   animation: fall linear infinite;
-  opacity: 0.9;
 }
 
 @keyframes fall {
@@ -42,156 +35,76 @@ body {
   }
 }
 
-/* Music Player */
+/* 🎵 Music Player */
 .music-player {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255,255,255,0.8);
   padding: 10px;
   border-radius: 12px;
   display: flex;
-  align-items: center;
   gap: 10px;
-  z-index: 3;
 }
 
-/* Cover container to give it a square look */
-.cover-container {
-  width: 60px;  /* Size of the cover */
-  height: 60px;
-  overflow: hidden;
-  border-radius: 8px;  /* Rounded corners for the cover */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow to make it pop */
+.music-player img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
 }
 
-.cover-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;  /* Ensures the image fills the container */
-}
-
-/* Play/Pause Button */
-.music-player button {
-  font-size: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-/* Main card */
+/* 💌 Card */
 .container {
   background: white;
   padding: 25px;
   border-radius: 15px;
-  width: 90%;
   max-width: 420px;
+  text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  z-index: 2;
 }
 
 h1 {
   color: #ff4d6d;
-  margin-bottom: 10px;
 }
 
-h2 {
-  margin: 15px 0;
-}
-
-p {
-  color: #555;
-}
-
-/* Buttons */
 .buttons {
-  margin-top: 20px;
   display: flex;
   justify-content: space-around;
-  gap: 10px;
+  margin-top: 20px;
 }
 
 button {
   padding: 12px 22px;
   font-size: 18px;
-  border: none;
   border-radius: 30px;
+  border: none;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
 #yesBtn {
-  background-color: #ff4d6d;
+  background: #ff4d6d;
   color: white;
 }
 
 #noBtn {
-  background-color: #ccc;
-  position: relative;
+  background: #ccc;
 }
 
-/* Final message */
 .hidden {
   display: none;
 }
 
-#finalMessage h2 {
-  color: #ff4d6d;
-  margin-bottom: 10px;
-}
-
-#finalMessage p {
-  color: #555;
-  font-size: 18px;
-}
-
-/* 🧸 Bear GIFs Container */
-#bearContainer {
-  display: flex;
-  justify-content: center;
-  gap: 30px; /* Add some space between the bears */
-  margin-top: 30px;
-  flex-wrap: wrap;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.bear {
-  text-align: center;
-  max-width: 200px;  /* Optional: Set max width for each bear */
-}
-
-#bearContainer .bear img {
-  width: 100%;
-  max-width: 150px; /* Limit the bear GIF size */
-}
-
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Floating hearts */
+/* 💕 Hearts */
 .hearts span {
   position: absolute;
   bottom: -20px;
-  font-size: 40px;  /* Bigger hearts */
-  animation: floatUp 8s linear infinite;  /* Slower speed for bigger hearts */
+  font-size: 40px;
+  animation: floatUp 8s linear infinite;
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
   to {
-    transform: translateY(-100vh) scale(2);  /* Bigger scale */
+    transform: translateY(-100vh) scale(2);
     opacity: 0;
   }
 }
