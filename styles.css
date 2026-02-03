@@ -35,6 +35,30 @@ body {
   }
 }
 
+/* 📸 Side Pics near center */
+.pic-side {
+  position: fixed;
+  top: 15px;
+  z-index: 3;
+  animation: popIn 0.8s ease forwards;
+}
+
+.pic-side.left {
+  left: 50%;
+  transform: translateX(-180px);
+}
+
+.pic-side.right {
+  right: 50%;
+  transform: translateX(180px);
+}
+
+.love-pic {
+  width: 110px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
 /* 🎵 Music Player */
 .music-player {
   position: fixed;
@@ -45,7 +69,7 @@ body {
   border-radius: 12px;
   display: flex;
   gap: 10px;
-  z-index: 3;
+  z-index: 4;
 }
 
 .music-player img {
@@ -65,9 +89,7 @@ body {
   z-index: 2;
 }
 
-h1 {
-  color: #ff4d6d;
-}
+h1 { color: #ff4d6d; }
 
 .buttons {
   display: flex;
@@ -83,34 +105,10 @@ button {
   cursor: pointer;
 }
 
-#yesBtn {
-  background: #ff4d6d;
-  color: white;
-}
+#yesBtn { background: #ff4d6d; color: white; }
+#noBtn { background: #ccc; }
 
-#noBtn {
-  background: #ccc;
-}
-
-.hidden {
-  display: none;
-}
-
-/* ❤️ Pics at bottom */
-.pics-bottom {
-  position: fixed;
-  bottom: 20px;
-  display: flex;
-  gap: 15px;
-  animation: popIn 0.8s ease forwards;
-  z-index: 2;
-}
-
-.love-pic {
-  width: 120px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-}
+.hidden { display: none; }
 
 /* 💕 Hearts */
 .hearts span {
@@ -127,7 +125,6 @@ button {
   }
 }
 
-/* ✨ Pop */
 @keyframes popIn {
   from {
     opacity: 0;
