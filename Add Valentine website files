@@ -50,6 +50,12 @@
     </div>
   </div>
 
+  <!-- ❤️ PICS MOVED OUTSIDE THE CARD -->
+  <div id="picsTogether" class="hidden pics-bottom">
+    <img src="pic1.jpg" class="love-pic">
+    <img src="pic2.jpg" class="love-pic">
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
@@ -62,6 +68,7 @@ const playPauseBtn = document.getElementById("playPause");
 const bearKiss = document.getElementById("bearKiss");
 const bearKiss2 = document.getElementById("bearKiss2");
 const rosesContainer = document.getElementById("roses-container");
+const picsTogether = document.getElementById("picsTogether");
 
 let noCount = 0;
 const noTexts = [
@@ -75,7 +82,7 @@ const noTexts = [
   "You HAVE to say yes 💘"
 ];
 
-// ▶️ Play / Pause button
+// ▶️ Play / Pause
 playPauseBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
@@ -102,17 +109,22 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.transform = `scale(${1 - noCount * 0.05})`;
 });
 
-// 💖 YES BUTTON — music starts at 0:24 with fade-in
+// 💖 YES BUTTON
 yesBtn.addEventListener("click", () => {
-  music.currentTime = 24;   // ⏱️ 0:24
-  music.volume = 0;        // start silent
+  music.currentTime = 24;
+  music.volume = 0;
   music.play();
   playPauseBtn.textContent = "⏸️";
-
   fadeInMusic();
 
   finalMessage.classList.remove("hidden");
   bearKiss.classList.remove("hidden");
+
+  setTimeout(() => {
+    bearKiss2.classList.remove("hidden");
+  }, 3000);
+
+  picsTogether.classList.remove("hidden");
 
   document.querySelector("h2").textContent =
     "yaayayyayayyayayayayaya :3";
@@ -121,12 +133,9 @@ yesBtn.addEventListener("click", () => {
   noBtn.style.display = "none";
 
   for (let i = 0; i < 50; i++) createHeart(true);
-
-  setTimeout(() => bearKiss2.classList.remove("hidden"), 3000);
-  setTimeout(() => bearKiss3.classList.remove("hidden"), 6000);
 });
 
-// 🎶 Smooth fade-in
+// 🎶 Fade-in
 function fadeInMusic() {
   let volume = 0;
   const fade = setInterval(() => {
@@ -134,7 +143,6 @@ function fadeInMusic() {
       volume += 0.02;
       music.volume = volume;
     } else {
-      music.volume = 1;
       clearInterval(fade);
     }
   }, 100);
@@ -146,12 +154,10 @@ function createHeart(final = false) {
   heart.textContent = final ? "💖" : "💌";
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = final ? "30px" : "40px";
-  heart.style.animationDuration = "8s";
   heartsContainer.appendChild(heart);
   setTimeout(() => heart.remove(), 8000);
 }
-
-setInterval(() => createHeart(), 300);
+setInterval(createHeart, 300);
 
 // 🌹 Roses
 function createRose() {
@@ -159,11 +165,9 @@ function createRose() {
   rose.className = "rose";
   rose.textContent = "🌹";
   rose.style.left = Math.random() * 100 + "vw";
-  rose.style.animationDuration = "6s";
   rosesContainer.appendChild(rose);
   setTimeout(() => rose.remove(), 9000);
 }
-
 setInterval(createRose, 450);
 * {
   margin: 0;
@@ -212,6 +216,7 @@ body {
   border-radius: 12px;
   display: flex;
   gap: 10px;
+  z-index: 3;
 }
 
 .music-player img {
@@ -228,6 +233,7 @@ body {
   max-width: 420px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  z-index: 2;
 }
 
 h1 {
@@ -261,6 +267,22 @@ button {
   display: none;
 }
 
+/* ❤️ Pics at bottom */
+.pics-bottom {
+  position: fixed;
+  bottom: 20px;
+  display: flex;
+  gap: 15px;
+  animation: popIn 0.8s ease forwards;
+  z-index: 2;
+}
+
+.love-pic {
+  width: 120px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
 /* 💕 Hearts */
 .hearts span {
   position: absolute;
@@ -273,5 +295,17 @@ button {
   to {
     transform: translateY(-100vh) scale(2);
     opacity: 0;
+  }
+}
+
+/* ✨ Pop */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
