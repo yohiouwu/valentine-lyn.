@@ -45,6 +45,7 @@ body {
   border-radius: 12px;
   display: flex;
   gap: 10px;
+  z-index: 3;
 }
 
 .music-player img {
@@ -61,6 +62,7 @@ body {
   max-width: 420px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  z-index: 2;
 }
 
 h1 {
@@ -94,6 +96,22 @@ button {
   display: none;
 }
 
+/* ❤️ Pics at bottom */
+.pics-bottom {
+  position: fixed;
+  bottom: 20px;
+  display: flex;
+  gap: 15px;
+  animation: popIn 0.8s ease forwards;
+  z-index: 2;
+}
+
+.love-pic {
+  width: 120px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
 /* 💕 Hearts */
 .hearts span {
   position: absolute;
@@ -106,5 +124,17 @@ button {
   to {
     transform: translateY(-100vh) scale(2);
     opacity: 0;
+  }
+}
+
+/* ✨ Pop */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
