@@ -7,6 +7,7 @@ const playPauseBtn = document.getElementById("playPause");
 const bearKiss = document.getElementById("bearKiss");
 const bearKiss2 = document.getElementById("bearKiss2");
 const rosesContainer = document.getElementById("roses-container");
+const picsTogether = document.getElementById("picsTogether");
 
 let noCount = 0;
 const noTexts = [
@@ -20,7 +21,7 @@ const noTexts = [
   "You HAVE to say yes 💘"
 ];
 
-// ▶️ Play / Pause button
+// ▶️ Play / Pause
 playPauseBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
@@ -47,17 +48,22 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.transform = `scale(${1 - noCount * 0.05})`;
 });
 
-// 💖 YES BUTTON — music starts at 0:24 with fade-in
+// 💖 YES BUTTON
 yesBtn.addEventListener("click", () => {
-  music.currentTime = 24;   // ⏱️ 0:24
-  music.volume = 0;        // start silent
+  music.currentTime = 24;
+  music.volume = 0;
   music.play();
   playPauseBtn.textContent = "⏸️";
-
   fadeInMusic();
 
   finalMessage.classList.remove("hidden");
   bearKiss.classList.remove("hidden");
+
+  setTimeout(() => {
+    bearKiss2.classList.remove("hidden");
+  }, 3000);
+
+  picsTogether.classList.remove("hidden");
 
   document.querySelector("h2").textContent =
     "yaayayyayayyayayayayaya :3";
@@ -66,12 +72,9 @@ yesBtn.addEventListener("click", () => {
   noBtn.style.display = "none";
 
   for (let i = 0; i < 50; i++) createHeart(true);
-
-  setTimeout(() => bearKiss2.classList.remove("hidden"), 3000);
-  setTimeout(() => bearKiss3.classList.remove("hidden"), 6000);
 });
 
-// 🎶 Smooth fade-in
+// 🎶 Fade-in
 function fadeInMusic() {
   let volume = 0;
   const fade = setInterval(() => {
@@ -79,7 +82,6 @@ function fadeInMusic() {
       volume += 0.02;
       music.volume = volume;
     } else {
-      music.volume = 1;
       clearInterval(fade);
     }
   }, 100);
@@ -91,12 +93,10 @@ function createHeart(final = false) {
   heart.textContent = final ? "💖" : "💌";
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = final ? "30px" : "40px";
-  heart.style.animationDuration = "8s";
   heartsContainer.appendChild(heart);
   setTimeout(() => heart.remove(), 8000);
 }
-
-setInterval(() => createHeart(), 300);
+setInterval(createHeart, 300);
 
 // 🌹 Roses
 function createRose() {
@@ -104,10 +104,7 @@ function createRose() {
   rose.className = "rose";
   rose.textContent = "🌹";
   rose.style.left = Math.random() * 100 + "vw";
-  rose.style.animationDuration = "6s";
   rosesContainer.appendChild(rose);
   setTimeout(() => rose.remove(), 9000);
 }
-
 setInterval(createRose, 450);
-
