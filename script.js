@@ -22,7 +22,7 @@ const noTexts = [
   "You HAVE to say yes 💘"
 ];
 
-// ▶️ Play / Pause
+// ▶️ Play / Pause button
 playPauseBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
@@ -49,38 +49,47 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.transform = `scale(${1 - noCount * 0.05})`;
 });
 
-// 💖 YES BUTTON
+// 💖 YES BUTTON — music starts at 0:24 with fade-in
 yesBtn.addEventListener("click", () => {
+  // Start music at 0:24
   music.currentTime = 24;
   music.volume = 0;
   music.play();
   playPauseBtn.textContent = "⏸️";
   fadeInMusic();
 
+  // Show final message & bears
   finalMessage.classList.remove("hidden");
   bearKiss.classList.remove("hidden");
   bearKiss2.classList.remove("hidden");
 
+  // Slide-in pics from sides
   picsLeft.classList.remove("hidden");
   picsRight.classList.remove("hidden");
+  picsLeft.classList.add("slide-in-left");
+  picsRight.classList.add("slide-in-right");
 
+  // Change main question text
   document.querySelector("h2").textContent =
     "yaayayyayayyayayayayaya :3";
 
+  // Hide buttons
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
+  // Hearts
   for (let i = 0; i < 40; i++) createHeart(true);
 });
 
-// 🎶 Fade-in music
+// 🎶 Smooth fade-in music
 function fadeInMusic() {
-  let v = 0;
+  let volume = 0;
   const fade = setInterval(() => {
-    if (v < 1) {
-      v += 0.02;
-      music.volume = v;
+    if (volume < 1) {
+      volume += 0.02;
+      music.volume = volume;
     } else {
+      music.volume = 1;
       clearInterval(fade);
     }
   }, 100);
