@@ -11,6 +11,15 @@
   <!-- 🌹 Falling Roses -->
   <div id="roses-container"></div>
 
+  <!-- 📸 Top Pics near center -->
+  <div id="picsLeft" class="hidden pic-side left">
+    <img src="pic1.jpg" class="love-pic">
+  </div>
+
+  <div id="picsRight" class="hidden pic-side right">
+    <img src="pic2.jpg" class="love-pic">
+  </div>
+
   <!-- 🎵 Music Player -->
   <div class="music-player">
     <img src="cover.jpg" alt="Music Cover">
@@ -50,12 +59,6 @@
     </div>
   </div>
 
-  <!-- ❤️ PICS MOVED OUTSIDE THE CARD -->
-  <div id="picsTogether" class="hidden pics-bottom">
-    <img src="pic1.jpg" class="love-pic">
-    <img src="pic2.jpg" class="love-pic">
-  </div>
-
   <script src="script.js"></script>
 </body>
 </html>
@@ -68,7 +71,8 @@ const playPauseBtn = document.getElementById("playPause");
 const bearKiss = document.getElementById("bearKiss");
 const bearKiss2 = document.getElementById("bearKiss2");
 const rosesContainer = document.getElementById("roses-container");
-const picsTogether = document.getElementById("picsTogether");
+const picsLeft = document.getElementById("picsLeft");
+const picsRight = document.getElementById("picsRight");
 
 let noCount = 0;
 const noTexts = [
@@ -119,12 +123,10 @@ yesBtn.addEventListener("click", () => {
 
   finalMessage.classList.remove("hidden");
   bearKiss.classList.remove("hidden");
+  bearKiss2.classList.remove("hidden");
 
-  setTimeout(() => {
-    bearKiss2.classList.remove("hidden");
-  }, 3000);
-
-  picsTogether.classList.remove("hidden");
+  picsLeft.classList.remove("hidden");
+  picsRight.classList.remove("hidden");
 
   document.querySelector("h2").textContent =
     "yaayayyayayyayayayayaya :3";
@@ -132,16 +134,16 @@ yesBtn.addEventListener("click", () => {
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
-  for (let i = 0; i < 50; i++) createHeart(true);
+  for (let i = 0; i < 40; i++) createHeart(true);
 });
 
-// 🎶 Fade-in
+// 🎶 Fade-in music
 function fadeInMusic() {
-  let volume = 0;
+  let v = 0;
   const fade = setInterval(() => {
-    if (volume < 1) {
-      volume += 0.02;
-      music.volume = volume;
+    if (v < 1) {
+      v += 0.02;
+      music.volume = v;
     } else {
       clearInterval(fade);
     }
@@ -153,11 +155,12 @@ function createHeart(final = false) {
   const heart = document.createElement("span");
   heart.textContent = final ? "💖" : "💌";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = final ? "30px" : "40px";
+  heart.style.animationDuration = "8s";
   heartsContainer.appendChild(heart);
   setTimeout(() => heart.remove(), 8000);
 }
-setInterval(createHeart, 300);
+
+setInterval(() => createHeart(), 300);
 
 // 🌹 Roses
 function createRose() {
@@ -165,9 +168,11 @@ function createRose() {
   rose.className = "rose";
   rose.textContent = "🌹";
   rose.style.left = Math.random() * 100 + "vw";
+  rose.style.animationDuration = "6s";
   rosesContainer.appendChild(rose);
   setTimeout(() => rose.remove(), 9000);
 }
+
 setInterval(createRose, 450);
 * {
   margin: 0;
@@ -206,6 +211,30 @@ body {
   }
 }
 
+/* 📸 Side Pics near center */
+.pic-side {
+  position: fixed;
+  top: 15px;
+  z-index: 3;
+  animation: popIn 0.8s ease forwards;
+}
+
+.pic-side.left {
+  left: 50%;
+  transform: translateX(-180px);
+}
+
+.pic-side.right {
+  right: 50%;
+  transform: translateX(180px);
+}
+
+.love-pic {
+  width: 110px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
 /* 🎵 Music Player */
 .music-player {
   position: fixed;
@@ -216,7 +245,7 @@ body {
   border-radius: 12px;
   display: flex;
   gap: 10px;
-  z-index: 3;
+  z-index: 4;
 }
 
 .music-player img {
@@ -236,9 +265,7 @@ body {
   z-index: 2;
 }
 
-h1 {
-  color: #ff4d6d;
-}
+h1 { color: #ff4d6d; }
 
 .buttons {
   display: flex;
@@ -254,34 +281,10 @@ button {
   cursor: pointer;
 }
 
-#yesBtn {
-  background: #ff4d6d;
-  color: white;
-}
+#yesBtn { background: #ff4d6d; color: white; }
+#noBtn { background: #ccc; }
 
-#noBtn {
-  background: #ccc;
-}
-
-.hidden {
-  display: none;
-}
-
-/* ❤️ Pics at bottom */
-.pics-bottom {
-  position: fixed;
-  bottom: 20px;
-  display: flex;
-  gap: 15px;
-  animation: popIn 0.8s ease forwards;
-  z-index: 2;
-}
-
-.love-pic {
-  width: 120px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-}
+.hidden { display: none; }
 
 /* 💕 Hearts */
 .hearts span {
@@ -298,7 +301,6 @@ button {
   }
 }
 
-/* ✨ Pop */
 @keyframes popIn {
   from {
     opacity: 0;
