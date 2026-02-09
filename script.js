@@ -7,8 +7,6 @@ const playPauseBtn = document.getElementById("playPause");
 const bearKiss = document.getElementById("bearKiss");
 const bearKiss2 = document.getElementById("bearKiss2");
 const rosesContainer = document.getElementById("roses-container");
-const picsLeft = document.getElementById("picsLeft");
-const picsRight = document.getElementById("picsRight");
 
 let noCount = 0;
 const noTexts = [
@@ -22,7 +20,7 @@ const noTexts = [
   "You HAVE to say yes 💘"
 ];
 
-// ▶️ Play / Pause button
+// ▶️ Play / Pause
 playPauseBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
@@ -49,39 +47,39 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.transform = `scale(${1 - noCount * 0.05})`;
 });
 
-// 💖 YES BUTTON — music starts at 0:24 with fade-in
+// 💖 YES BUTTON
 yesBtn.addEventListener("click", () => {
-  // Start music at 0:24
+  // Music
   music.currentTime = 24;
   music.volume = 0;
   music.play();
   playPauseBtn.textContent = "⏸️";
   fadeInMusic();
 
-  // Show final message & bears
+  // Show content
   finalMessage.classList.remove("hidden");
   bearKiss.classList.remove("hidden");
   bearKiss2.classList.remove("hidden");
 
-  // Slide-in pics from sides
-  picsLeft.classList.remove("hidden");
-  picsRight.classList.remove("hidden");
-  picsLeft.classList.add("slide-in-left");
-  picsRight.classList.add("slide-in-right");
-
-  // Change main question text
   document.querySelector("h2").textContent =
     "yaayayyayayyayayayayaya :3";
 
-  // Hide buttons
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
   // Hearts
   for (let i = 0; i < 40; i++) createHeart(true);
+
+  // 💋 AGGRESSIVE MWAAAH SPAM
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      createMwah();
+      if (Math.random() > 0.6) createMwah();
+    }, i * 80);
+  }
 });
 
-// 🎶 Smooth fade-in music
+// 🎶 Fade-in music
 function fadeInMusic() {
   let volume = 0;
   const fade = setInterval(() => {
@@ -89,7 +87,6 @@ function fadeInMusic() {
       volume += 0.02;
       music.volume = volume;
     } else {
-      music.volume = 1;
       clearInterval(fade);
     }
   }, 100);
@@ -119,3 +116,28 @@ function createRose() {
 }
 
 setInterval(createRose, 450);
+
+// 💋 MWAAAH FUNCTION
+function createMwah() {
+  const mwah = document.createElement("span");
+  mwah.textContent = "mwah Lyn 💋";
+
+  mwah.style.position = "fixed";
+  mwah.style.left = Math.random() * 100 + "vw";
+  mwah.style.top = Math.random() * 100 + "vh";
+  mwah.style.fontSize = Math.random() * 26 + 20 + "px";
+  mwah.style.fontWeight = "bold";
+  mwah.style.color = "#ff2f6d";
+  mwah.style.zIndex = "10";
+  mwah.style.pointerEvents = "none";
+
+  const rotate = Math.random() * 60 - 30;
+  mwah.style.transform = `rotate(${rotate}deg)`;
+
+  mwah.style.animation =
+    "mwahFloat 2.5s ease-out forwards, mwahShake 0.4s ease-in-out infinite";
+
+  document.body.appendChild(mwah);
+
+  setTimeout(() => mwah.remove(), 2500);
+}
