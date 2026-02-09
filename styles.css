@@ -35,53 +35,6 @@ body {
   }
 }
 
-/* 📸 Side Pics - Slide In from Sides */
-.pic-side {
-  position: fixed;
-  top: 15px;
-  z-index: 3;
-  width: 160px;
-  border-radius: 15px;
-  box-shadow: 0 20px 30px rgba(0,0,0,0.35);
-  transition: transform 1s ease, opacity 1s ease;
-  opacity: 0;
-}
-
-/* Start positions off-screen */
-.pic-side.left {
-  left: -200px;   /* offscreen left */
-  transform: rotate(-7deg);
-}
-
-.pic-side.right {
-  right: -200px;  /* offscreen right */
-  transform: rotate(7deg);
-}
-
-/* Slide in animation applied by JS */
-.pic-side.slide-in-left {
-  left: 50%;
-  transform: translateX(-220px) rotate(-7deg);
-  opacity: 1;
-}
-
-.pic-side.slide-in-right {
-  right: 50%;
-  transform: translateX(220px) rotate(7deg);
-  opacity: 1;
-}
-
-.love-pic {
-  width: 100%;
-  border-radius: 15px;
-  transition: transform 0.3s ease;
-}
-
-/* Hover effect */
-.love-pic:hover {
-  transform: scale(1.05) rotate(0deg);
-}
-
 /* 🎵 Music Player */
 .music-player {
   position: fixed;
@@ -112,7 +65,9 @@ body {
   z-index: 2;
 }
 
-h1 { color: #ff4d6d; }
+h1 {
+  color: #ff4d6d;
+}
 
 .buttons {
   display: flex;
@@ -128,10 +83,18 @@ button {
   cursor: pointer;
 }
 
-#yesBtn { background: #ff4d6d; color: white; }
-#noBtn { background: #ccc; }
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+}
 
-.hidden { display: none; }
+#noBtn {
+  background: #ccc;
+}
+
+.hidden {
+  display: none;
+}
 
 /* 💕 Hearts */
 .hearts span {
@@ -146,4 +109,24 @@ button {
     transform: translateY(-100vh) scale(2);
     opacity: 0;
   }
+}
+
+/* 💋 MWAAAH ANIMATIONS */
+@keyframes mwahFloat {
+  from {
+    transform: translateY(0) scale(0.8);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-90px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes mwahShake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-2px); }
+  50%  { transform: translateX(2px); }
+  75%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
 }
