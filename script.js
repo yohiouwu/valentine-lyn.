@@ -67,10 +67,13 @@ yesBtn.addEventListener("click", () => {
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
-  // Hearts
-  for (let i = 0; i < 40; i++) createHeart(true);
+  // 💕 Hearts explode around button
+  const rect = yesBtn.getBoundingClientRect();
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => createHeart(true, rect.left + rect.width/2, rect.top + rect.height/2), i * 50);
+  }
 
-  // 💋 AGGRESSIVE MWAAAH SPAM
+  // 💋 Aggressive MWAH spam
   for (let i = 0; i < 50; i++) {
     setTimeout(() => {
       createMwah();
@@ -93,13 +96,19 @@ function fadeInMusic() {
 }
 
 // 💕 Hearts
-function createHeart(final = false) {
+function createHeart(final = false, xPos=null, yPos=null) {
   const heart = document.createElement("span");
   heart.textContent = final ? "💖" : "💌";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = "8s";
+
+  heart.style.left = xPos!==null ? `${xPos}px` : Math.random() * 100 + "vw";
+  heart.style.top = yPos!==null ? `${yPos}px` : "100vh";
+  heart.style.position = "fixed";
+  heart.style.fontSize = Math.random() * 26 + 20 + "px";
+  heart.style.animationDuration = "2s";
+  heart.style.zIndex = "10";
+
   heartsContainer.appendChild(heart);
-  setTimeout(() => heart.remove(), 8000);
+  setTimeout(() => heart.remove(), 2000);
 }
 
 setInterval(() => createHeart(), 300);
@@ -117,7 +126,7 @@ function createRose() {
 
 setInterval(createRose, 450);
 
-// 💋 MWAAAH FUNCTION
+// 💋 MWAH FUNCTION
 function createMwah() {
   const mwah = document.createElement("span");
   mwah.textContent = "mwah Lyn 💋";
@@ -138,6 +147,5 @@ function createMwah() {
     "mwahFloat 2.5s ease-out forwards, mwahShake 0.4s ease-in-out infinite";
 
   document.body.appendChild(mwah);
-
   setTimeout(() => mwah.remove(), 2500);
 }
