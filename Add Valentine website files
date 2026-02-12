@@ -122,10 +122,13 @@ yesBtn.addEventListener("click", () => {
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
-  // Hearts
-  for (let i = 0; i < 40; i++) createHeart(true);
+  // 💕 Hearts explode around button
+  const rect = yesBtn.getBoundingClientRect();
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => createHeart(true, rect.left + rect.width/2, rect.top + rect.height/2), i * 50);
+  }
 
-  // 💋 AGGRESSIVE MWAAAH SPAM
+  // 💋 Aggressive MWAH spam
   for (let i = 0; i < 50; i++) {
     setTimeout(() => {
       createMwah();
@@ -148,13 +151,19 @@ function fadeInMusic() {
 }
 
 // 💕 Hearts
-function createHeart(final = false) {
+function createHeart(final = false, xPos=null, yPos=null) {
   const heart = document.createElement("span");
   heart.textContent = final ? "💖" : "💌";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = "8s";
+
+  heart.style.left = xPos!==null ? `${xPos}px` : Math.random() * 100 + "vw";
+  heart.style.top = yPos!==null ? `${yPos}px` : "100vh";
+  heart.style.position = "fixed";
+  heart.style.fontSize = Math.random() * 26 + 20 + "px";
+  heart.style.animationDuration = "2s";
+  heart.style.zIndex = "10";
+
   heartsContainer.appendChild(heart);
-  setTimeout(() => heart.remove(), 8000);
+  setTimeout(() => heart.remove(), 2000);
 }
 
 setInterval(() => createHeart(), 300);
@@ -172,7 +181,7 @@ function createRose() {
 
 setInterval(createRose, 450);
 
-// 💋 MWAAAH FUNCTION
+// 💋 MWAH FUNCTION
 function createMwah() {
   const mwah = document.createElement("span");
   mwah.textContent = "mwah Lyn 💋";
@@ -193,7 +202,6 @@ function createMwah() {
     "mwahFloat 2.5s ease-out forwards, mwahShake 0.4s ease-in-out infinite";
 
   document.body.appendChild(mwah);
-
   setTimeout(() => mwah.remove(), 2500);
 }
 * {
@@ -205,7 +213,7 @@ function createMwah() {
 body {
   height: 100vh;
   background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  font-family: Arial, sans-serif;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -252,38 +260,52 @@ body {
   border-radius: 8px;
 }
 
-/* 💌 Card */
+/* 💌 Cute Card */
 .container {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
+  background: linear-gradient(145deg, #fff0f5, #ffe4e1);
+  padding: 30px;
+  border-radius: 25px;
   max-width: 420px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
   z-index: 2;
+  border: 2px solid #ffb6c1;
 }
 
 h1 {
   color: #ff4d6d;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 15px 0;
 }
 
 .buttons {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 button {
-  padding: 12px 22px;
-  font-size: 18px;
-  border-radius: 30px;
+  padding: 14px 26px;
+  font-size: 20px;
+  border-radius: 35px;
   border: none;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #yesBtn {
-  background: #ff4d6d;
+  background: linear-gradient(135deg, #ff6eb4, #ff2f6d);
   color: white;
+  font-weight: bold;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #ff6eb4;
 }
 
 #noBtn {
@@ -294,7 +316,7 @@ button {
   display: none;
 }
 
-/* 💕 Hearts */
+/* 💕 Floating Hearts */
 .hearts span {
   position: absolute;
   bottom: -20px;
@@ -309,16 +331,10 @@ button {
   }
 }
 
-/* 💋 MWAAAH ANIMATIONS */
+/* 💋 MWAH Animations */
 @keyframes mwahFloat {
-  from {
-    transform: translateY(0) scale(0.8);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-90px) scale(1.5);
-    opacity: 0;
-  }
+  from { transform: translateY(0) scale(0.8); opacity: 1; }
+  to   { transform: translateY(-90px) scale(1.5); opacity: 0; }
 }
 
 @keyframes mwahShake {
