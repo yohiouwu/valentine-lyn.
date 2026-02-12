@@ -7,7 +7,7 @@
 body {
   height: 100vh;
   background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  font-family: Arial, sans-serif;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,38 +54,52 @@ body {
   border-radius: 8px;
 }
 
-/* 💌 Card */
+/* 💌 Cute Card */
 .container {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
+  background: linear-gradient(145deg, #fff0f5, #ffe4e1);
+  padding: 30px;
+  border-radius: 25px;
   max-width: 420px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
   z-index: 2;
+  border: 2px solid #ffb6c1;
 }
 
 h1 {
   color: #ff4d6d;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 15px 0;
 }
 
 .buttons {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 button {
-  padding: 12px 22px;
-  font-size: 18px;
-  border-radius: 30px;
+  padding: 14px 26px;
+  font-size: 20px;
+  border-radius: 35px;
   border: none;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #yesBtn {
-  background: #ff4d6d;
+  background: linear-gradient(135deg, #ff6eb4, #ff2f6d);
   color: white;
+  font-weight: bold;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #ff6eb4;
 }
 
 #noBtn {
@@ -96,7 +110,7 @@ button {
   display: none;
 }
 
-/* 💕 Hearts */
+/* 💕 Floating Hearts */
 .hearts span {
   position: absolute;
   bottom: -20px;
@@ -111,16 +125,10 @@ button {
   }
 }
 
-/* 💋 MWAAAH ANIMATIONS */
+/* 💋 MWAH Animations */
 @keyframes mwahFloat {
-  from {
-    transform: translateY(0) scale(0.8);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-90px) scale(1.5);
-    opacity: 0;
-  }
+  from { transform: translateY(0) scale(0.8); opacity: 1; }
+  to   { transform: translateY(-90px) scale(1.5); opacity: 0; }
 }
 
 @keyframes mwahShake {
